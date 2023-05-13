@@ -1,0 +1,166 @@
+<div class="dropdown">
+  <button class="dropdown-btn">Select a range</button>
+  <ul class="dropdown-menu">
+    <li *ngFor="let range of ranges"><a href="#" [data-value]="range">{{ range }}</a></li>
+  </ul>
+</div>
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  display: none;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-menu li {
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f5f5f5;
+}
+
+
+
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dropdown',
+  templateUrl: './dropdown.component.html',
+  styleUrls: ['./dropdown.component.css']
+})
+export class DropdownComponent {
+  ranges = ['1-1000', '1000-2000', '2000-3000']; // array of range values
+
+  onRangeSelected(range: string) {
+    console.log('Selected range: ', range);
+    // do something with the selected range, such as show/hide content based on the range
+  }
+}
+000000000000000000000000000
+
+Sure, I can help you create a login form in Angular with form validation and a professional design using either Bootstrap or Material. Here's an example using Bootstrap:
+
+First, you'll need to install Bootstrap in your project. You can do this by running the following command in your project directory:
+
+Copy code
+npm install bootstrap
+Then, in your app.module.ts file, import the Bootstrap CSS file:
+
+typescript
+Copy code
+import 'bootstrap/dist/css/bootstrap.min.css';
+Next, create a new component for your login form by running the following command:
+
+Copy code
+ng generate component login
+In your login.component.html file, add the following code:
+
+html
+Copy code
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Login
+        </div>
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" formControlName="email">
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                <div *ngIf="email.errors.required">Email is required.</div>
+                <div *ngIf="email.errors.email">Invalid email format.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" formControlName="password">
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                <div *ngIf="password.errors.required">Password is required.</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+In your login.component.ts file, add the following code:
+
+typescript
+Copy code
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+
+  constructor() { }
+
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required)
+    });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  onSubmit() {
+    console.log(this.loginForm.value);
+  }
+}
+This code creates a FormGroup with two FormControls for the email and password fields. It also defines validators for each field, and provides error messages for invalid inputs. The onSubmit() method logs the form values to the console.
+
+Finally, add the LoginComponent to your app.component.html file:
+
+html
+Copy code
+<app-login></app-login>
+And that's it! You now have a login form in Angular with form validation and a professional design using Bootstrap.
